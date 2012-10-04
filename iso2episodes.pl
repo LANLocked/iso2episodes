@@ -30,7 +30,6 @@ exit;
 }
 
 ### Config section ####
-
 my @encoding_profiles = ("High Profile","Android Mid","Normal");
 my %wanted_subs_language = map {$_,1} ("Nederlands","English");
 my $handbrake = `which HandBrakeCLI`;
@@ -40,9 +39,6 @@ chomp $handbrake;
 my $minepisodelengthminutes = 20;  # minimum episode length in minutes..any track longer than this will be encoded
 
 ########### End Config section  ###########
-
-
-
 
 my $filename = shift @ARGV;
 chomp($filename);
@@ -56,7 +52,7 @@ if ($@) {
     print $@;
     }
 else {
-@selected_tracks;
+@selected_tracks = ();
 %selected_subp_tracks;
 foreach $track (@{$lsdvd{'track'}}) {
 	print "Track ID:", $track->{'ix'}," Length:",$track->{'length'};	
@@ -69,7 +65,7 @@ foreach $track (@{$lsdvd{'track'}}) {
 		print "\t\tSubtitle language:",$subp->{'language'};
 			if ($wanted_subs_language{$subp->{'language'}}) {
 			print " (Selected) Index:",$subp->{'ix'},"\n";
-			
+						
 			$selected_subp_tracks{"t$tracknr"}->{$subp->{'language'}} = $subp->{'ix'} unless $selected_subp_tracks{"t$tracknr"}->{$subp->{'language'}};
 			}
 			else {
@@ -89,7 +85,7 @@ foreach $tracknr (@selected_tracks) {
     foreach $encprof (@encoding_profiles) {
 	$profilemidfix = lc($encprof);
 	$profilemidfix =~ s/ //g;
-	print @{$selected_subp_tracks{$tracknr}};
+#	print @{$selected_subp_tracks{t$tracknr}};
 #	system("$handbrake -i $filename -o $filename.Title$tracknr.$profilemidfix.mp4 -s 1 -Z \"$encprof\"");
 	}
     }
