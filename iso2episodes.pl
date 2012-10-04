@@ -30,7 +30,8 @@ exit;
 }
 
 ### Config section ####
-my @encoding_profiles = ("High Profile","Android Mid","Normal");
+#my @encoding_profiles = ("High Profile","Android Mid","Normal");
+my @encoding_profiles = ("Android Mid");
 my %wanted_subs_language = map {$_,1} ("Nederlands","English");
 my $handbrake = `which HandBrakeCLI`;
 chomp $handbrake;
