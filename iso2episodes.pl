@@ -78,14 +78,22 @@ foreach $track (@{$lsdvd{'track'}}) {
 }
 print "Selected tracks: ", @selected_tracks, "\n";
 
-print Dumper(\%selected_subp_tracks);
+#print Dumper(\%selected_subp_tracks);
 
-exit;
 foreach $tracknr (@selected_tracks) {
+	my @subtracks;
+	foreach $langtrack (keys %{$selected_subp_tracks{"t$tracknr"}})
+	{
+#	print "Language subtitle track: ",$selected_subp_tracks{"t$tracknr"}," ",$selected_subp_tracks{"t$tracknr"}{$langtrack},"\n";
+	push @subtracks, $selected_subp_tracks{"t$tracknr"}{$langtrack};
+	}
+	my $subtracks = join(',',@subtracks);
+	print "Subtracks: ", $subtracks,"\n";
     foreach $encprof (@encoding_profiles) {
 	$profilemidfix = lc($encprof);
 	$profilemidfix =~ s/ //g;
+	#print $profilemidfix,"\n";
 #	print @{$selected_subp_tracks{t$tracknr}};
-#	system("$handbrake -i $filename -o $filename.Title$tracknr.$profilemidfix.mp4 -s 1 -Z \"$encprof\"");
+	system("$handbrake -i $filename -o $filename.Title$tracknr.$profilemidfix.mp4 -s $subtracks -Z \"$encprof\"");
 	}
     }
