@@ -87,14 +87,9 @@ print Dumper(\%selected_subp_tracks);
 exit;
 foreach $tracknr (@selected_tracks) {
     foreach $encprof (@encoding_profiles) {
-	#@args = ($handbrake, " -i $filename", " -o $filename.T$tracknr.mp4"," -s 1"," -Z \"$encprof\"");
-	#system(@args);
-	#print @args;
 	$profilemidfix = lc($encprof);
 	$profilemidfix =~ s/ //g;
 	print @{$selected_subp_tracks{$tracknr}};
-	#print $profilemidfix,"\n";
 #	system("$handbrake -i $filename -o $filename.Title$tracknr.$profilemidfix.mp4 -s 1 -Z \"$encprof\"");
-	#exit;
 	}
     }
