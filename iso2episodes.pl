@@ -95,6 +95,6 @@ foreach $tracknr (@selected_tracks) {
 	$profilemidfix =~ s/ //g;
 	#print $profilemidfix,"\n";
 #	print @{$selected_subp_tracks{t$tracknr}};
-	system("$handbrake -i $filename -o $filename.Title$tracknr.$profilemidfix.mp4 -s $subtracks -Z \"$encprof\"");
+	system("$handbrake -i $filename -o $filename.Title$tracknr.$profilemidfix.mp4 -t $tracknr -s $subtracks -Z \"$encprof\"");
 	}
     }
